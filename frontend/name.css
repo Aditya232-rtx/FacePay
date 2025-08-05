@@ -1,79 +1,250 @@
-*{
-    margin: 0;
-    padding: 0;
+/*
+  Enhanced responsive, mobile-first CSS using rem, vh, vw, and clamp()
+  - Uses clamp() for font sizes and input heights
+  - Reduces oversized elements on small screens
+  - Improves scaling for large desktops (with media queries)
+  - Pure CSS, accessible, consistent
+*/
+
+/* Base styles (mobile first) */
+html {
+    font-size: 16px;
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
 }
 
-body{
+body {
     background: linear-gradient(to bottom, #FFFFFF, #2646D5);
-    height: 932px;
-    width: 430px;
-    font-family: 'Anton';
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: 'Anton', sans-serif;
     position: relative;
     overflow: hidden;
     margin: 0 auto;
+    width: 100vw;
+    max-width: 100vw;
 }
 
-main .image img{
+/* Main image section */
+main .image img {
     position: absolute;
-    width: 682px;
-    opacity: 51%;
-    top: 27%;
-    left: -65px;  
+    width: 158vw;
+    max-width: none;
+    opacity: 0.51;
+    top: 27vh;
+    left: -15vw;
     z-index: -1;
     object-fit: cover;
+    height: auto;
 }
 
 main {
     overflow: hidden;
     position: relative;
-    width: 100%;
-    height: 100%;
-}
-main .step{
-    position: absolute;
-    background-color: #666;
-    color: #FFFFFF;
-    width: 61px;
-height: 23px;
-opacity: 0.91;
-top: 751px;
-left: 175px;
-border-radius: 80px;
-font-size: 11px;
-font-weight: 400;
-justify-items: center;
-padding-top: 4px;
+    width: 100vw;
+    height: 100vh;
 }
 
-footer .name{
+/* Step indicator */
+main .step {
     position: absolute;
-    bottom: 50px;
-    left: 50%;
+    background-color: #666;
+    color: #fff;
+    width: clamp(4.5rem, 14vw, 8rem);
+    height: clamp(2rem, 2.5rem, 3rem);
+    opacity: 0.91;
+    top: 80vh;
+    left: 50vw;
     transform: translateX(-50%);
-    width: 100%;
+    border-radius: 5rem;
+    font-size: clamp(0.7rem, 2vw, 1.1rem);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.2rem;
+}
+
+/* Footer input section */
+footer .name {
+    position: absolute;
+    bottom: 7vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-footer #text{
-    width: 360px;
-    height: 75px;
+footer #text {
+    width: clamp(12rem, 84vw, 30rem);
+    height: clamp(2.5rem, 4.5rem, 5rem);
     position: relative;
     opacity: 1;
-    border-radius: 116px;
-    border: 0px;
-    padding: 20px 0 30px 20px;
-    font-size: 24px;
+    border-radius: 7rem;
+    border: none;
+    padding: 1rem 0 1.25rem 1.25rem;
+    font-size: clamp(1rem, 1.5rem, 2rem);
     background: rgba(255, 255, 255, 0.9);
     box-sizing: border-box;
+    transition: box-shadow 0.2s;
+}
+footer #text:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #2646D5;
 }
 
-input::placeholder{
+input::placeholder {
     font-weight: 400;
-    font-style: Regular;
-    font-size: 24px;
-    line-height: 100%;
-    letter-spacing: 0%;
+    font-style: normal;
+    font-size: clamp(1rem, 1.5rem, 2rem);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
     color: #666;
 }
+
+/* Utility: Responsive spacing for accessibility */
+@supports (gap: 1rem) {
+    footer .name {
+        gap: 1rem;
+    }
+}
+
+/* --- Responsive Media Queries --- */
+
+/* /xs/ */
+@media (min-width: 475px) {
+    main .image img {
+        width: 120vw;
+        top: 20vh;
+        left: -10vw;
+    }
+    main .step {
+        width: clamp(5rem, 12vw, 9rem);
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
+        top: 78vh;
+    }
+    footer #text {
+        width: clamp(14rem, 70vw, 32rem);
+        font-size: clamp(1.1rem, 1.7rem, 2.2rem);
+    }
+    footer .name {
+        bottom: 8vh;
+    }
+}
+
+/* /sm/ */
+@media (min-width: 640px) {
+    main .image img {
+        width: 100vw;
+        top: 15vh;
+        left: 0vw;
+    }
+    main .step {
+        width: clamp(6rem, 10vw, 10rem);
+        font-size: clamp(0.9rem, 2vw, 1.3rem);
+        top: 76vh;
+    }
+    footer #text {
+        width: clamp(16rem, 60vw, 34rem);
+        font-size: clamp(1.2rem, 1.8rem, 2.3rem);
+    }
+    footer .name {
+        bottom: 9vh;
+    }
+}
+
+/* /md/ */
+@media (min-width: 768px) {
+    main .image img {
+        width: 80vw;
+        top: 10vh;
+        left: 10vw;
+    }
+    main .step {
+        width: clamp(7rem, 8vw, 11rem);
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        top: 74vh;
+    }
+    footer #text {
+        width: clamp(18rem, 50vw, 36rem);
+        font-size: clamp(1.3rem, 2rem, 2.4rem);
+    }
+    footer .name {
+        bottom: 10vh;
+    }
+}
+
+/* /Lg/ */
+@media (min-width: 1024px) {
+    main .image img {
+        width: 60vw;
+        top: 8vh;
+        left: 20vw;
+    }
+    main .step {
+        width: clamp(8rem, 7vw, 12rem);
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
+        top: 72vh;
+    }
+    footer #text {
+        width: clamp(20rem, 40vw, 38rem);
+        font-size: clamp(1.4rem, 2.2rem, 2.5rem);
+    }
+    footer .name {
+        bottom: 11vh;
+    }
+}
+
+/* /xl/ */
+@media (min-width: 1280px) {
+    main .image img {
+        width: 50vw;
+        top: 6vh;
+        left: 25vw;
+    }
+    main .step {
+        width: clamp(9rem, 6vw, 13rem);
+        font-size: clamp(1.2rem, 2vw, 1.6rem);
+        top: 70vh;
+    }
+    footer #text {
+        width: clamp(22rem, 30vw, 40rem);
+        font-size: clamp(1.5rem, 2.4rem, 2.6rem);
+    }
+    footer .name {
+        bottom: 12vh;
+    }
+}
+
+/* /2XL/ */
+@media (min-width: 1536px) {
+    main .image img {
+        width: 40vw;
+        top: 4vh;
+        left: 30vw;
+    }
+    main .step {
+        width: clamp(10rem, 5vw, 14rem);
+        font-size: clamp(1.3rem, 2vw, 1.7rem);
+        top: 68vh;
+    }
+    footer #text {
+        width: clamp(24rem, 24vw, 42rem);
+        font-size: clamp(1.6rem, 2.6rem, 2.7rem);
+    }
+    footer .name {
+        bottom: 13vh;
+    }
+}
+
+/*
+  Responsive Tweaks:
+  - clamp() ensures font/input never too small or too large
+  - vw/vh for layout scaling
+  - rem for consistent spacing
+  - Use max-widths and min-widths for better desktop scaling
+*/
