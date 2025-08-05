@@ -1,65 +1,214 @@
-*{
-    margin: 0;
-    padding: 0;
+/*
+  Responsive, mobile-first CSS using rem, vh, and vw units only
+  - 1rem = 16px (set in html)
+  - Use rem for font sizes, spacing
+  - Use vh/vw for layout
+  - No fixed px values
+  - Accessible, consistent spacing
+  - Use clamp() for fluid scaling
+  - Structure for navbar, hero, buttons, card, footer input
+*/
+
+html {
+    font-size: 16px;
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
 }
 
-body{
+body {
     background: linear-gradient(to bottom, #FFFFFF, #2646D5);
-    height: 104vh;
-    width: 25.75rem;
-    font-family: 'Anton';
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: 'Anton', sans-serif;
     position: relative;
+    margin: 0 auto;
+    width: 100vw;
+    max-width: 100vw;
 }
 
-main .step{
-    position: absolute;
-    top: 50px;
-    left: 175px;
+/* Button styles (example, not in HTML yet) */
+.button, button {
+    display: inline-block;
+    padding: 0.75rem 2.5rem;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    font-weight: 600;
+    border-radius: 2rem;
+    border: none;
+    background: #2646D5;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 0.5rem 0;
+}
+.button:hover, button:hover {
+    background: #1a2e8a;
 }
 
-main .step{
+/* Step indicator */
+main .step {
     position: absolute;
     background-color: #666;
-    color: #FFFFFF;
-    width: 61px;
-height: 23px;
-opacity: 0.91;
-top: 536px;
-left: 175px;
-border-radius: 80px;
-font-size: 11px;
-font-weight: 400;
-justify-items: center;
-padding-top: 4px;
+    color: #fff;
+    width: clamp(4.5rem, 14vw, 8rem);
+    height: clamp(2rem, 2.5rem, 3rem);
+    opacity: 0.91;
+    top: 57vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    border-radius: 5rem;
+    font-size: clamp(0.7rem, 1.2vw, 1rem);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.2rem;
 }
 
-footer .text{
+/* Footer input section */
+footer .text {
     position: absolute;
-    bottom: 10%;
-    left: 50%;
+    bottom: 7vh;
+    left: 50vw;
     transform: translateX(-50%);
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-}
-footer #text{
-    width: 360px;
-    height: 75px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 116px;
-    font-size: 24px;
-    font-weight: 400;
-    color: #353535;
-    padding: 0 30px;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
+    gap: 1.25rem;
 }
 
-footer #submit:hover{
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} 
+footer #text {
+    width: clamp(12rem, 84vw, 30rem);
+    height: clamp(2.5rem, 4.5rem, 5rem);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 7rem;
+    font-size: clamp(1rem, 1.5rem, 2rem);
+    font-weight: 400;
+    color: #353535;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+footer #text:focus {
+    outline: 2px solid #2646D5;
+    background: #fff;
+}
+
+input::placeholder {
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1.5rem, 2rem);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: #666;
+}
+
+/* Utility: Responsive spacing for accessibility */
+@supports (gap: 1rem) {
+    footer .text {
+        gap: 1.25rem;
+    }
+}
+
+/* ========== Responsive Breakpoints ========== */
+
+/* /xs/ */
+@media (min-width: 475px) {
+    main .step {
+        width: clamp(5.5rem, 12vw, 9rem);
+        font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+        top: 56vh;
+    }
+    footer #text {
+        width: clamp(14rem, 70vw, 32rem);
+        font-size: clamp(1.1rem, 1.7rem, 2.1rem);
+    }
+    footer .text {
+        bottom: 8vh;
+    }
+}
+
+/* /sm/ */
+@media (min-width: 640px) {
+    main .step {
+        width: clamp(6rem, 10vw, 10rem);
+        font-size: clamp(0.9rem, 1.7vw, 1.2rem);
+        top: 55vh;
+    }
+    footer #text {
+        width: clamp(16rem, 60vw, 34rem);
+        font-size: clamp(1.2rem, 1.8rem, 2.2rem);
+    }
+    footer .text {
+        bottom: 9vh;
+    }
+}
+
+/* /md/ */
+@media (min-width: 768px) {
+    main .step {
+        width: clamp(7rem, 9vw, 11rem);
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        top: 50vh;
+    }
+    footer #text {
+        width: clamp(18rem, 50vw, 36rem);
+        font-size: clamp(1.3rem, 2rem, 2.3rem);
+    }
+    footer .text {
+        bottom: 10vh;
+    }
+}
+
+/* /lg/ */
+@media (min-width: 1024px) {
+    main .step {
+        width: clamp(8rem, 7vw, 12rem);
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        top: 53vh;
+    }
+    footer #text {
+        width: clamp(20rem, 36vw, 38rem);
+        font-size: clamp(1.4rem, 2.2rem, 2.4rem);
+    }
+    footer .text {
+        bottom: 11vh;
+    }
+}
+
+/* /xl/ */
+@media (min-width: 1280px) {
+    main .step {
+        width: clamp(9rem, 6vw, 13rem);
+        font-size: clamp(1.2rem, 2vw, 1.6rem);
+        top: 50vh;
+    }
+    footer #text {
+        width: clamp(22rem, 30vw, 40rem);
+        font-size: clamp(1.5rem, 2.4rem, 2.6rem);
+    }
+    footer .text {
+        bottom: 12vh;
+    }
+}
+
+/* /2XL/ */
+@media (min-width: 1536px) {
+    main .step {
+        width: clamp(10rem, 5vw, 14rem);
+        font-size: clamp(1.3rem, 2vw, 1.7rem);
+        top: 50vh;
+    }
+    footer #text {
+        width: clamp(24rem, 24vw, 42rem);
+        font-size: clamp(1.6rem, 2.6rem, 2.7rem);
+    }
+    footer .text {
+        bottom: 13vh;
+    }
+}
