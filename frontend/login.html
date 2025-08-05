@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Poppins&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <a href="index.html" class="back-btn">←</a>
+            <p>LOGIN</p>
+            <div class="circle"></div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="login-container">
+            <h2>Welcome Back</h2>
+            
+            <!-- Login Tabs -->
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="switchTab('password')">Password</button>
+                <button class="tab-btn" onclick="switchTab('face')">Face Login</button>
+            </div>
+            
+            <!-- Password Login Form -->
+            <form id="passwordLoginForm" class="login-form active">
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                
+                <div class="error-message" id="passwordError"></div>
+                
+                <button type="submit" class="submit-btn">
+                    <span>LOGIN</span>
+                </button>
+            </form>
+            
+            <!-- Face Login Form -->
+            <div id="faceLoginForm" class="login-form">
+                <div class="face-scan-container">
+                    <div class="camera-frame">
+                        <video id="video" autoplay muted></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        <div class="scan-overlay">
+                            <div class="scan-box"></div>
+                        </div>
+                    </div>
+                    <p class="scan-instruction">Position your face in the frame</p>
+                </div>
+                
+                <div class="error-message" id="faceError"></div>
+                
+                <button type="button" class="submit-btn" onclick="startFaceLogin()">
+                    <span>SCAN FACE</span>
+                </button>
+            </div>
+            
+            <div class="register-link">
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/api';
+        let stream = null;
+        
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update forms
+            document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
+            if (tab === 'password') {
+                document.getElementById('passwordLoginForm').classList.add('active');
+                stopCamera();
+            } else {
+                document.getElementById('faceLoginForm').classList.add('active');
+                startCamera();
+            }
+        }
+        
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: 400, 
+                        height: 400,
+                        facingMode: 'user'
+                    } 
+                });
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+            } catch (error) {
+                showFaceError('Camera access denied. Please allow camera access.');
+                console.error('Camera error:', error);
+            }
+        }
+        
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+        }
+        
+        async function startFaceLogin() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            
+            // Capture frame
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Convert to blob
+            canvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append('faceImage', blob, 'face.jpg');
+                
+                try {
+                    const response = await fetch(`${API_BASE_URL}/auth/face-login`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Store token and user data
+                        localStorage.setItem('token', data.data.token);
+                        localStorage.setItem('user', JSON.stringify(data.data.user));
+                        
+                        // Redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        showFaceError(data.message || 'Face not recognized');
+                    }
+                } catch (error) {
+                    showFaceError('Network error. Please try again.');
+                    console.error('Face login error:', error);
+                }
+            }, 'image/jpeg', 0.8);
+        }
+        
+        // Password login form
+        document.getElementById('passwordLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Store token and user data
+                    localStorage.setItem('token', data.data.token);
+                    localStorage.setItem('user', JSON.stringify(data.data.user));
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    showPasswordError(data.message || 'Login failed');
+                }
+            } catch (error) {
+                showPasswordError('Network error. Please try again.');
+                console.error('Login error:', error);
+            }
+        });
+        
+        function showPasswordError(message) {
+            const errorElement = document.getElementById('passwordError');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function showFaceError(message) {
+            const errorElement = document.getElementById('faceError');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        // Start camera when page loads if face tab is active
+        window.addEventListener('load', () => {
+            if (document.getElementById('faceLoginForm').classList.contains('active')) {
+                startCamera();
+            }
+        });
+        
+        // Clean up camera when leaving page
+        window.addEventListener('beforeunload', stopCamera);
+    </script>
+</body>
+</html> 

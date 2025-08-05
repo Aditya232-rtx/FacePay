@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Register Face</title>
+    <link rel="stylesheet" href="face-register.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Poppins&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <a href="register.html" class="back-btn">←</a>
+            <p>FACE REGISTRATION</p>
+            <div class="circle"></div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="face-register-container">
+            <h2>Register Your Face</h2>
+            <p class="instruction">Position your face in the frame and click capture</p>
+            
+            <div class="camera-container">
+                <div class="camera-frame">
+                    <video id="video" autoplay muted></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <div class="scan-overlay">
+                        <div class="scan-box"></div>
+                    </div>
+                </div>
+                
+                <div class="capture-controls">
+                    <button id="captureBtn" class="capture-btn">CAPTURE FACE</button>
+                    <button id="retakeBtn" class="retake-btn" style="display: none;">RETAKE</button>
+                </div>
+            </div>
+            
+            <div class="preview-container" id="previewContainer" style="display: none;">
+                <h3>Captured Image</h3>
+                <img id="previewImage" alt="Captured face">
+                <button id="registerBtn" class="register-btn">REGISTER FACE</button>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="skip-link">
+                <a href="dashboard.html">Skip for now</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/api';
+        let stream = null;
+        let capturedImage = null;
+        
+        // Check if user is logged in
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+        
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: 400, 
+                        height: 400,
+                        facingMode: 'user'
+                    } 
+                });
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+            } catch (error) {
+                showError('Camera access denied. Please allow camera access.');
+                console.error('Camera error:', error);
+            }
+        }
+        
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+        }
+        
+        document.getElementById('captureBtn').addEventListener('click', () => {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            canvas.toBlob((blob) => {
+                capturedImage = blob;
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = URL.createObjectURL(blob);
+                
+                document.getElementById('captureBtn').style.display = 'none';
+                document.getElementById('retakeBtn').style.display = 'block';
+                document.getElementById('previewContainer').style.display = 'block';
+                document.querySelector('.camera-frame').style.display = 'none';
+            }, 'image/jpeg', 0.8);
+        });
+        
+        document.getElementById('retakeBtn').addEventListener('click', () => {
+            document.getElementById('captureBtn').style.display = 'block';
+            document.getElementById('retakeBtn').style.display = 'none';
+            document.getElementById('previewContainer').style.display = 'none';
+            document.querySelector('.camera-frame').style.display = 'block';
+            capturedImage = null;
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', async () => {
+            if (!capturedImage) {
+                showError('Please capture an image first');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('faceImage', capturedImage, 'face.jpg');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/register-face`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Face registered successfully!');
+                    window.location.href = 'dashboard.html';
+                } else {
+                    showError(data.message || 'Face registration failed');
+                }
+            } catch (error) {
+                showError('Network error. Please try again.');
+                console.error('Face registration error:', error);
+            }
+        });
+        
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        // Start camera when page loads
+        window.addEventListener('load', startCamera);
+        
+        // Clean up camera when leaving page
+        window.addEventListener('beforeunload', stopCamera);
+    </script>
+</body>
+</html> 

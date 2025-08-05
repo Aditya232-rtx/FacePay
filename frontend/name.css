@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: linear-gradient(to bottom, #FFFFFF, #2646D5);
+    height: 932px;
+    width: 430px;
+    font-family: 'Anton';
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+main .image img{
+    position: absolute;
+    width: 682px;
+    opacity: 51%;
+    top: 27%;
+    left: -65px;  
+    z-index: -1;
+    object-fit: cover;
+}
+
+main {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+main .step{
+    position: absolute;
+    background-color: #666;
+    color: #FFFFFF;
+    width: 61px;
+height: 23px;
+opacity: 0.91;
+top: 751px;
+left: 175px;
+border-radius: 80px;
+font-size: 11px;
+font-weight: 400;
+justify-items: center;
+padding-top: 4px;
+}
+
+footer .name{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer #text{
+    width: 360px;
+    height: 75px;
+    position: relative;
+    opacity: 1;
+    border-radius: 116px;
+    border: 0px;
+    padding: 20px 0 30px 20px;
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+}
+
+input::placeholder{
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #666;
+}

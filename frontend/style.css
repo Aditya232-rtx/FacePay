@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: linear-gradient(to bottom, #FFFFFF, #2646D5);
+    height: 104vh;
+    width: 25.75rem;
+    font-family: 'Anton';
+    position: relative;
+}
+
+.topbar{
+    background-color: #2646D5;
+    height: 4.19vh;
+    width: 22.5rem;
+    margin: 1.8125rem 0 0 1.625rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar p{
+    color: #FFFFFF;
+    margin-left: 1.25rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    font-size: 1.25rem;
+}
+
+.circle{
+    background-color: #FFFFFF;
+    height: 3.33vh;
+    width: 1.875rem;
+    border-radius: 50%;
+    margin-right: 0.375rem;
+}
+
+main h1{
+    position: absolute;
+    top: 24.625rem;
+    left: 1.625rem;
+    font-weight: 400;
+    font-size: 8rem;
+    line-height: 90%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.subtitle {
+    position: absolute;
+    top: 35rem;
+    left: 1.625rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+footer .register{
+    position: absolute;
+    top:87.66vh;
+    left: 1.625rem;
+    color: #FFFFFF;
+}
+
+footer .login {
+    position: absolute;
+    top: 95vh;
+    left: 1.625rem;
+    color: #FFFFFF;
+}
+
+footer button{
+    width: 22.5rem;
+    height: 5.56vh;
+    border-radius: 1.6875rem;
+}
+footer button h1{
+    color: #838383;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+.login-btn {
+    background: transparent;
+    border: 2px solid #838383;
+}
+footer button:hover {
+    background-color: #838383;
+}

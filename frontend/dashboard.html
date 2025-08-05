@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Poppins&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <p>FACEPAY</p>
+            <div class="user-menu">
+                <span id="userName">User</span>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="dashboard-container">
+            <h1>Welcome to FacePay</h1>
+            
+            <div class="user-info">
+                <div class="profile-section">
+                    <div class="profile-image" id="profileImage">
+                        <span id="userInitials">U</span>
+                    </div>
+                    <div class="user-details">
+                        <h2 id="userFullName">User Name</h2>
+                        <p id="userEmail">user@example.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button onclick="window.location.href='payment.html'" class="action-btn payment-btn">
+                        <span class="icon">💳</span>
+                        <span>Make Payment</span>
+                    </button>
+                    <button onclick="window.location.href='face-register.html'" class="action-btn face-btn">
+                        <span class="icon">📷</span>
+                        <span>Register Face</span>
+                    </button>
+                    <button onclick="window.location.href='history.html'" class="action-btn history-btn">
+                        <span class="icon">📊</span>
+                        <span>Payment History</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="status-section">
+                <h3>Account Status</h3>
+                <div class="status-items">
+                    <div class="status-item">
+                        <span class="status-label">Face Recognition:</span>
+                        <span class="status-value" id="faceStatus">Not Set Up</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Account Verified:</span>
+                        <span class="status-value" id="verificationStatus">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in
+        const token = localStorage.getItem('token');
+        const userData = localStorage.getItem('user');
+        
+        if (!token || !userData) {
+            window.location.href = 'login.html';
+        }
+        
+        // Load user data
+        const user = JSON.parse(userData);
+        
+        // Update UI with user data
+        document.getElementById('userName').textContent = user.firstName;
+        document.getElementById('userFullName').textContent = `${user.firstName} ${user.lastName}`;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userInitials').textContent = user.firstName.charAt(0) + user.lastName.charAt(0);
+        
+        // Update status
+        document.getElementById('faceStatus').textContent = user.hasFaceEmbeddings ? 'Active' : 'Not Set Up';
+        document.getElementById('verificationStatus').textContent = user.isVerified ? 'Verified' : 'Pending';
+        
+        // Update status colors
+        if (user.hasFaceEmbeddings) {
+            document.getElementById('faceStatus').style.color = '#10b981';
+        }
+        if (user.isVerified) {
+            document.getElementById('verificationStatus').style.color = '#10b981';
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html> 
