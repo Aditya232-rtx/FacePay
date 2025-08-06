@@ -1,0 +1,258 @@
+/* =========================
+   Root and Base Styles
+   ========================= */
+html {
+    font-size: 16px; /* 1rem = 16px for calculation simplicity */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #FFFFFF, #2646D5);
+    min-height: 100vh;
+    width: 100vw;
+    font-family: 'Anton', sans-serif;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+/* =========================
+   Topbar
+   ========================= */
+.topbar {
+    background-color: #2646D5;
+    height: 4.19vh;
+    width: 90vw;
+    max-width: 22.5rem;
+    margin: 1.5rem auto 0 auto;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 1.25rem;
+}
+
+.topbar p {
+    color: #FFFFFF;
+    margin-left: 0;
+    line-height: 1.2;
+    letter-spacing: 0;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600;
+}
+
+.circle {
+    background-color: #FFFFFF;
+    height: 3.33vh;
+    width: 3.33vh;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    border-radius: 50%;
+    margin-right: 0.375rem;
+}
+
+/* =========================
+   Main Heading
+   ========================= */
+main h1 {
+    position: absolute;
+    top: 40vh;
+    left: 6vw;
+    font-weight: 400;
+    font-size: clamp(4rem, 18vw, 9rem);
+    line-height: 0.95;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.01em;
+    word-break: break-word;
+    max-width: 90vw;
+}
+
+/* =========================
+   Footer Start Button
+   ========================= */
+footer .start {
+    position: absolute;
+    top: 87vh;
+    left: 6vw;
+    color: #FFFFFF;
+    width: 90vw;
+    max-width: 22.5rem;
+}
+
+footer button {
+    width: 100%;
+    max-width: 22.5rem;
+    height: 6vh;
+    min-height: 2.5rem;
+    border-radius: 1.6875rem;
+    border: none;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0.25rem 1rem rgba(38, 70, 213, 0.08);
+    padding: 0 1.5rem;
+}
+
+footer button h1 {
+    color: #838383;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    line-height: 1.1;
+    letter-spacing: 0;
+}
+
+footer button:hover {
+    background-color: #f3f3f3;
+}
+
+/* =========================
+   Responsive Styles
+   ========================= */
+
+/* xs: 475px */
+@media (min-width: 475px) {
+    .topbar {
+        width: 85vw;
+        max-width: 26rem;
+        padding: 0 2rem;
+    }
+    main h1 {
+        left: 8vw;
+        font-size: clamp(3.5rem, 5rem, 6.5rem);
+        max-width: 80vw;
+    }
+    footer .start {
+        left: 8vw;
+        width: 85vw;
+        max-width: 26rem;
+    }
+}
+
+/* sm: 640px */
+@media (min-width: 640px) {
+    .topbar {
+        width: 70vw;
+        max-width: 30rem;
+        margin-top: 2rem;
+    }
+    main h1 {
+        left: 10vw;
+        font-size: clamp(4rem, 7vw, 7rem);
+        max-width: 70vw;
+    }
+    footer .start {
+        left: 10vw;
+        width: 70vw;
+        max-width: 30rem;
+    }
+}
+
+/* md: 768px */
+@media (min-width: 768px) {
+    html {
+        font-size: 17px;
+    }
+    .topbar {
+        width: 60vw;
+        max-width: 34rem;
+        margin-top: 2.5rem;
+        padding: 0 2.5rem;
+    }
+    main h1 {
+        left: 12vw;
+        top: 38vh;
+        font-size: clamp(4.5rem, 6vw, 8rem);
+        max-width: 60vw;
+    }
+    footer .start {
+        left: 12vw;
+        width: 60vw;
+        max-width: 34rem;
+    }
+}
+
+/* lg: 1024px */
+@media (min-width: 1024px) {
+    html {
+        font-size: 18px;
+    }
+    .topbar {
+        width: 50vw;
+        max-width: 38rem;
+        margin-top: 3rem;
+        padding: 0 3rem;
+    }
+    main h1 {
+        left: 15vw;
+        top: 36vh;
+        font-size: clamp(5rem, 5vw, 9rem);
+        max-width: 50vw;
+    }
+    footer .start {
+        left: 15vw;
+        width: 50vw;
+        max-width: 38rem;
+    }
+}
+
+/* xl: 1280px */
+@media (min-width: 1280px) {
+    html {
+        font-size: 19px;
+    }
+    .topbar {
+        width: 40vw;
+        max-width: 42rem;
+        margin-top: 3.5rem;
+        padding: 0 3.5rem;
+    }
+    main h1 {
+        left: 18vw;
+        top: 34vh;
+        font-size: clamp(5.5rem, 4vw, 10rem);
+        max-width: 40vw;
+    }
+    footer .start {
+        left: 18vw;
+        width: 40vw;
+        max-width: 42rem;
+    }
+}
+
+/* 2xl: 1536px */
+@media (min-width: 1536px) {
+    html {
+        font-size: 20px;
+    }
+    .topbar {
+        width: 32vw;
+        max-width: 48rem;
+        margin-top: 4rem;
+        padding: 0 4rem;
+    }
+    main h1 {
+        left: 22vw;
+        top: 32vh;
+        font-size: clamp(6rem, 3vw, 12rem);
+        max-width: 32vw;
+    }
+    footer .start {
+        left: 22vw;
+        width: 32vw;
+        max-width: 48rem;
+    }
+}
