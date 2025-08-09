@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100vh;
+    min-height: 100vh;
+}
+body{
+    font-family: 'Anton';
+    min-height: 100vh;
+    min-width: 100vw;
+    /* Use a fixed, non-repeating gradient for the whole viewport */
+    background: linear-gradient(to bottom, #FFFFFF, #2646D5);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+/* Ensure the gradient always covers the full viewport on all devices */
+@media (max-width: 600px) {
+    body {
+        background-size: 100% 100vh;
+    }
+}
+@media (max-height: 700px) {
+    body {
+        background-size: 100vw 100%;
+    }
+}
+@media (max-width: 600px), (max-height: 700px) {
+    body {
+        background-size: cover;
+    }
+}
+
+main .background{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+main .background p{
+font-weight: 400;
+font-size: 8rem;
+line-height: 0.9;
+background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    transform: rotate(-31.94deg);
+    display: inline-block;
+}
+
+main .center .circle4{
+    position: relative;
+    background-color: #859BFF;
+    width: 16.9375rem;
+    height: 17.125rem;
+    opacity: 1;
+    top: 20.125rem;
+    left: 4.375rem;
+border-radius: 50%;
+}
+
+
+main .center .circle3{
+    background-color: #6480FF;
+    position: absolute;
+    width: 15.5rem;
+    height: 15.625rem;
+    opacity: 1;
+    top: 0.75rem;
+    left: 0.75rem;
+border-radius: 50%;
+
+}
+
+main .center .circle2{
+    background-color: #395CFF;
+    position: absolute;
+    width: 14rem;
+    height: 14rem;
+    opacity: 1;
+    top: 0.8125rem;
+    left: 0.75rem;
+border-radius: 50%;
+
+}
+
+main .center .circle1{
+    background-color: #002EFF;
+    position: absolute;
+    width: 12.5rem;
+    height: 12.5625rem;
+    opacity: 1;
+    top: 0.8125rem;
+    left: 0.75rem;
+border-radius: 50%;
+
+}
+
+main .center .circle1 h1{
+    position: absolute;
+    top: 4.25rem;
+    left: 1.6875rem;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255, 255, 255, 0.3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-family: Anton;
+font-weight: 400;
+font-size: 4rem;
+line-height: 1.01;
+
+}
+main .message {
+    position: absolute;
+    width: 16.3125rem;
+    height: 2rem;
+    opacity: 1;
+    top: 39.1875rem;
+    left: 5.125rem;
+
+}
+main .message p{
+    font-family: Anton;
+font-weight: 400;
+font-size: 2rem;
+line-height: 1.01;
+color: #FFFFFF;
+
+}
+
+footer button{
+position: absolute;
+width: 23.6875rem;
+height: 3.125rem;
+opacity: 1;
+top: 51.6875rem;
+left: 2rem;
+border-radius: 0.625rem;
+border: 0;
+}
+
+footer h4{
+font-family: Anton;
+font-weight: 400;
+font-size: 2.25rem;
+line-height: 1.01;
+color: #2646D5;
+}

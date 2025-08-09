@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.img img{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+    opacity: 1;
+    position: relative;
+}
+.btn{
+    font: inherit;
+    position: absolute;
+    width: 21.75rem;
+    height: 4.875rem;
+opacity: 1;
+    top: 45.625rem;
+    left: 1.5rem;
+    border-radius: 0.625rem;
+background-color: #2646D5;
+    border: 0;
+
+}
+.btn h4{
+    color: #ffffff;
+font-weight: 700;
+font-size: 2.25rem;
+line-height: 1;
+
+}

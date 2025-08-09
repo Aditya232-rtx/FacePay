@@ -1,0 +1,150 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Anton';
+    background: linear-gradient(to bottom, #FFFFFF, #2646D5);
+    min-height: 100vh;
+    min-width: 100vw;
+
+}
+.topbar {
+    background-color: #2646D5;
+    height: 4.19vh;
+    width: 80vw;
+    max-width: 22.5rem;
+    margin: 1.5rem auto 0 auto;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 1.25rem;
+}
+
+.name h1 {
+    font-weight: 400;
+    font-size: 128px;
+    background: linear-gradient(to bottom, rgba(4,0,225,0.9), rgba(4,0,255,0.1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    max-width: 90vw;
+}
+
+.topbar p {
+    color: #FFFFFF;
+    margin-left: 0;
+    line-height: 1.2;
+    letter-spacing: 0;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600;
+}
+
+.circle {
+    background-color: #FFFFFF;
+    height: 3.33vh;
+    width: 3.33vh;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    border-radius: 50%;
+    margin-right: -0.875rem;
+}
+
+.name
+{
+    width: 335px;
+height: 258px;
+opacity: 1;
+top: 115px;
+left: 26px;
+margin-top: 50px;
+margin-left: 20px;
+}
+
+.name h1{
+font-weight: 400;
+font-size: 128px;
+line-height: 103%;
+    background: linear-gradient(to bottom, rgba(4,0,225,0.9), rgba(4,0,255,0.1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    max-width: 90vw;
+}
+
+.amount{
+position: relative;
+width: 354px;
+height: 128px;
+opacity: 1;
+top:50px;
+border-radius: 19px;
+background-color: #C6D5EC;
+align-content: center;
+margin-left: 20px;
+}
+
+.amount h4{
+font-weight: 400;
+font-size: 32px;
+line-height: 150%;
+letter-spacing: 0%;
+color: #2646D5;
+justify-self: center;
+}
+
+.amount h5{
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #2646D5;
+    justify-self: center;
+    }
+
+.glass {
+    overflow: hidden;
+    width: 100vw;
+    max-width: 100vw;
+    position: relative;
+}
+
+.glass img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+    position: relative;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    z-index: -1;
+}
+
+footer button{
+    position: relative;
+    width: 379px;
+height: 50px;
+angle: 0 deg;
+opacity: 1;
+top: -120px;
+left: 5px;
+border-radius: 10px;
+border: 0px;
+}
+
+footer h4{
+font-family: Anton;
+font-weight: 400;
+font-style: Regular;
+font-size: 36px;
+leading-trim: NONE;
+line-height: 101%;
+letter-spacing: 0%;
+color: #2646D5;
+}
